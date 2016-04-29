@@ -558,7 +558,7 @@ project deadline. </br>
 <h3>
 Submissions
 </h3>
-There are five files here.
+There are eight essential files here.
 <ol>
 <li>
 index.html
@@ -571,6 +571,12 @@ style.css
 </li>
 <li>
 script.js
+</li>
+<li>
+style1.css
+</li>
+<li>
+script1.js
 </li>
 <li>
 mn_shootings.tsv
