@@ -573,7 +573,10 @@ style.css
 script.js
 </li>
 <li>
-mn\_shootings.tsv
+mn_shootings.tsv
+</li>
+<li>
+mn.json
 </li>
 </ol>
 Index.html is the submission html. Index1.html is the pop-up work I did
