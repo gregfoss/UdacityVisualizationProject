@@ -612,4 +612,4 @@ chart</a> be ideal here?
 <h3>
 Static Screen Grabs of Final Visualization
 </h3>
-![](Capture.PNG) ![](Capture2.PNG)
+![](Police_related_deaths_files/figure-markdown_strict/Capture.PNG) ![](Police_related_deaths_files/figure-markdown_strict/Capture2.PNG)
