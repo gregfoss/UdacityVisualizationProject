@@ -55,7 +55,7 @@
         var projection = d3.geo.mercator()
                                .scale(1)
                                .translate( [0, 0]);
-
+            //This section finds the optimum size of the geo drawing based on width and height
         var path = d3.geo.path().projection(projection);
 
         var b = path.bounds(geo_data),
@@ -65,7 +65,7 @@
         projection
             .scale(s)
             .translate(t);
-
+            //draw the map from the geo data features taken from geojson
         var map = svg.selectAll('path')
                      .data(geo_data.features)
                      .enter()
@@ -76,7 +76,7 @@
                      .style('stroke-width', 0.5);
                      
         function plot_points(data) {
-
+            //summarize by year, and plot only those in a particular year 
             var nested = d3.nest()
                            .key(function(d) {
                               return d['DeathDate'];
@@ -107,11 +107,11 @@
                              
                            })
                            .entries(data);
-
+            
             var count_max = d3.max(nested, function(d) {
                 return d.values['count'];
             });
-
+            //Not a dynamic radius as each dot represents one death
             var radius = d3.scale.sqrt()
                            .domain([0, count_max])
                            .range([0, 15]);
@@ -119,7 +119,8 @@
             function key_func(d) {
                 return d['key'];
             }
-                                        
+                                      
+            //append the actual circle now. Styling, of course, found in the css.   
             svg.append('g')
                .attr("class", "bubble")
                .selectAll("circle")
@@ -130,9 +131,9 @@
                .attr('cy', function(d) { return d.values['y']; })
                .attr('r', 8);
           
-          
+          //get the fields from the tsv that should be put in a table.
           var peopleTable = tabulate(data, ["DeathDate", "FirstName", "LastName", "Race", "StribNarrative", "photo"]);
-          
+          //This function will update the map based on year
           function update(year) {
               var filtered = nested.filter(function(d) {
                   return new Date(d['key']).getUTCFullYear() === year;
@@ -183,7 +184,7 @@
                         .enter()
                         .append("div")
                         .text(function(d) { return d; });
-                 
+                 //the event trigger for the year button click. 
                  buttons.on("click", function(d) {
                    d3.select(".years_buttons")
                      .selectAll("div")
@@ -209,8 +210,8 @@
         var format = d3.time.format("%m/%d/%Y");   
         
         d3.tsv("mn_shootings.tsv", function(d) {
-          d['count'] = +d['count'];
-          d['DeathDate'] = format.parse(d['DeathDate']);
+          d['count'] = +d['count']; //the +d makes it an integer
+          d['DeathDate'] = format.parse(d['DeathDate']); //get a nice date format, not the date time and all that.
           return d;
         }, plot_points);
         
