@@ -257,7 +257,7 @@
           //Add Note for Highlighted area
           d3.select("body")
             .append("h4")
-                .text("NOTE: Highlighted area in map above represents Twin-Cities Metro");
+                .text("NOTE: The highlighted area in map above represents the Twin-Cities Metropolitan Area.");
           //Add a simple scatterplot to show trend over time
           var yearTrend = scatter(data);
           //Select the features from the tsv to be put in the table. 
