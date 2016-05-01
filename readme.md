@@ -632,6 +632,11 @@ being killed by police. Would not a
 chart</a> be ideal here?
 
 <h3>
-Static Screen Grabs of Final Visualization
+Static Screen Grabs of Visualization before First Submission
 </h3>
 ![](Police_related_deaths_files/figure-markdown_strict/Capture.PNG) ![](Police_related_deaths_files/figure-markdown_strict/Capture2.PNG)
+<h3>
+Static Screen Grabs of the Final Visualization
+![](Police_related_deaths_files/figure-markdown_strict/Capture3.PNG) ![](Police_related_deaths_files/figure-markdown_strict/Capture4.PNG)
+![](Police_related_deaths_files/figure-markdown_strict/Capture5.PNG)
+</h3>
