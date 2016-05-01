@@ -13,17 +13,17 @@
       
       div.years_buttons {
         position: absolute;
-        top: 5px;
-        left: 50px;
+        top: 50px;
+        left: 900px;
         
       }
 
       div.years_buttons div {
         padding: 3px;
         margin: 7px;
-        margin-top: 50px;
+        margin-top: 15px;
         float: none;
-        display: inline-table;
+
         border-radius: 8px;
         background-color: #e7e7e7; color: black;
       }
@@ -31,3 +31,19 @@
       table, th, td {
         border: 1px solid black;
       }
+      
+      path { 
+          stroke: steelblue;
+          stroke-width: 2;
+          fill: none;
+      }
+
+      .axis path,
+      .axis line {
+          fill: none;
+          stroke: grey;
+          stroke-width: 1;
+          shape-rendering: crispEdges;
+      }
+
+

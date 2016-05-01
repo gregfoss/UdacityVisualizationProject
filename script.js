@@ -1,4 +1,5 @@
       function tabulate(data, columns) {
+
             var table = d3.select("body").append("table")
                     .attr("style", "margin-left: 25px"),
                 thead = table.append("thead"),
@@ -33,6 +34,97 @@
             return table;
         }
     
+      function scatter(dataScat) { 
+            // Set the dimensions of the canvas / graph
+            var margin = {top: 30, right: 20, bottom: 30, left: 50},
+                width = 900 - margin.left - margin.right,
+                height = 500 - margin.top - margin.bottom;
+            // Parse the date / time
+            var parseDate = d3.time.format("%Y").parse;
+            
+            // Set the ranges
+            var x = d3.time.scale().range([0, width]);
+            var y = d3.scale.linear().range([height, 0]);
+
+            // Define the axes
+            var xAxis = d3.svg.axis().scale(x)
+                .orient("bottom").ticks(16);
+
+            var yAxis = d3.svg.axis().scale(y)
+                .orient("left").ticks(5);
+
+            // Define the line
+            var valueline = d3.svg.line()
+                .x(function(d) { return x(d.date); })
+                .y(function(d) { return y(d.count); });
+                
+            // Adds the svg canvas 
+            var svg = d3.select("body")
+                .append("svg")
+                    .attr("width", width + margin.left + margin.right)
+                    .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                    .attr("transform", 
+                        "translate(" + margin.left + "," + margin.top + ")");
+                        
+                svg.append("text")
+                    .attr("x", (width / 2))             
+                    .attr("y", 0 - (margin.top / 2))
+                    .attr("text-anchor", "middle")  
+                    .style("font-size", "16px") 
+                    .style("text-decoration", "underline")  
+                    .text("Body Count By Year");
+            // Get the data
+            d3.tsv("yeardeaths.tsv", function(error, data) {
+                data.forEach(function(d) {
+                    d.date = parseDate(d.date);
+                    d.count = +d.count;
+                });
+                // Scale the range of the data
+                x.domain(d3.extent(data, function(d) { return d.date; }));
+                y.domain([0, d3.max(data, function(d) { return d.count; })]);
+
+                // Add the valueline path.
+                svg.append("path")
+                    .attr("class", "line")
+                    .attr("d", valueline(data));             
+
+                // Add the scatterplot
+                svg.selectAll("dot")
+                    .data(data)
+                .enter().append("circle")
+                    .attr("r", 3.5)
+                    .attr("cx", function(d) { return x(d.date); })
+                    .attr("cy", function(d) { return y(d.count); });
+                    
+                // Add the X Axis
+                svg.append("g")
+                    .attr("class", "x axis")
+                    .attr("transform", "translate(0," + height + ")")
+                    .call(xAxis)
+                   .append("text")
+                    .attr("class", "label")
+                    .attr("x", width)
+                    .attr("y", -6)
+                    .style("text-anchor", "end")
+                    .text("Year");
+
+                // Add the Y Axis
+                svg.append("g")
+                    .attr("class", "y axis")
+                    .call(yAxis)
+                   .append("text")
+                    .attr("class", "label")
+                    .attr("transform", "rotate(-90)")
+                    .attr("y", 6)
+                    .attr("dy", ".71em")
+                    .style("text-anchor", "end")
+                    .text("Body Count");
+
+            });
+
+          
+      }
       
       function draw(geo_data) {
         "use strict";
@@ -46,16 +138,17 @@
           
     
         var svg = d3.select("body")
-            .append("svg")
-            .attr("width", width + margin)
-            .attr("height", height + margin)
-            .append('g')
-            .attr('class', 'map');
+                    .append("svg")
+                    .attr("width", width + margin)
+                    .attr("height", height + margin)
+                    .append('g')
+                    .attr('class', 'map');
         
+        //This section finds the optimum size of the geo drawing based on width and height
         var projection = d3.geo.mercator()
                                .scale(1)
                                .translate( [0, 0]);
-            //This section finds the optimum size of the geo drawing based on width and height
+
         var path = d3.geo.path().projection(projection);
 
         var b = path.bounds(geo_data),
@@ -65,18 +158,37 @@
         projection
             .scale(s)
             .translate(t);
-            //draw the map from the geo data features taken from geojson
+
         var map = svg.selectAll('path')
                      .data(geo_data.features)
                      .enter()
                      .append('path')
                      .attr('d', path)
-                     .style('fill', 'steelBlue')
+                     .style('fill', 'lightgray')
                      .style('stroke', 'black')
                      .style('stroke-width', 0.5);
+                    
+                  svg.selectAll("text")
+                     .data(geo_data.features)
+                     .enter()
+                     .append("svg:text")
+                     .text(function(d){
+                         return d.properties.name;
+                     })
+                     .attr("x", function(d){
+                         return path.centroid(d)[0];
+                     })
+                     .attr("y", function(d){
+                         return  path.centroid(d)[1];
+                     })
+                     .attr("text-anchor","middle")
+                     .attr('font-size','10pt')
+                     .attr('fill-opacity', '.5')
+                     .attr('fill', 'blue');
                      
+        //use leaves and nest to plot the points by year              
         function plot_points(data) {
-            //summarize by year, and plot only those in a particular year 
+
             var nested = d3.nest()
                            .key(function(d) {
                               return d['DeathDate'];
@@ -107,11 +219,11 @@
                              
                            })
                            .entries(data);
-            
+
             var count_max = d3.max(nested, function(d) {
                 return d.values['count'];
             });
-            //Not a dynamic radius as each dot represents one death
+
             var radius = d3.scale.sqrt()
                            .domain([0, count_max])
                            .range([0, 15]);
@@ -119,8 +231,7 @@
             function key_func(d) {
                 return d['key'];
             }
-                                      
-            //append the actual circle now. Styling, of course, found in the css.   
+                                        
             svg.append('g')
                .attr("class", "bubble")
                .selectAll("circle")
@@ -131,9 +242,11 @@
                .attr('cy', function(d) { return d.values['y']; })
                .attr('r', 8);
           
-          //get the fields from the tsv that should be put in a table.
+          //Add a simple scatterplot to show trend over time
+          var yearTrend = scatter(data);
+          //Select the features from the tsv to be put in the table. 
           var peopleTable = tabulate(data, ["DeathDate", "FirstName", "LastName", "Race", "StribNarrative", "photo"]);
-          //This function will update the map based on year
+          
           function update(year) {
               var filtered = nested.filter(function(d) {
                   return new Date(d['key']).getUTCFullYear() === year;
@@ -184,7 +297,7 @@
                         .enter()
                         .append("div")
                         .text(function(d) { return d; });
-                 //the event trigger for the year button click. 
+                 
                  buttons.on("click", function(d) {
                    d3.select(".years_buttons")
                      .selectAll("div")
@@ -203,15 +316,16 @@
                     
                 });       
             }
-          }, 1000);
+          }, 10);
             
         }
+        
 
         var format = d3.time.format("%m/%d/%Y");   
         
         d3.tsv("mn_shootings.tsv", function(d) {
-          d['count'] = +d['count']; //the +d makes it an integer
-          d['DeathDate'] = format.parse(d['DeathDate']); //get a nice date format, not the date time and all that.
+          d['count'] = +d['count']; //+d makes sure this is an integer
+          d['DeathDate'] = format.parse(d['DeathDate']); //parse out the date not the whole time 
           return d;
         }, plot_points);
         
