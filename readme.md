@@ -486,7 +486,7 @@ continue to improve as my js and d3 skills advance. </br>
 <h3>
 Design
 </h3>
-My goal was to show clustering for a geographical area and a trend. I also wanted to have a 'martini' glass visualization. One that would tell a small story without user interaction and then allow the user to explore the data on their own. I felt that the subject matter was a bit sensitive therefore I did not want to leave any police related death in MN be left out. This is why I chose a map of Minnesota as my geoJSON instead of just the metropolitan area. The problem was showing to individuals who were unfamiliar with MN why exactly the 
+My goal was to show clustering for a geographical area and a trend. I also wanted to have a 'martini' glass visualization. One that would tell a small story without user interaction and then allow the user to explore the data on their own. I felt that the subject matter was a bit sensitive therefore I did not want to leave any police related death in MN be left out. This is why I chose a map of Minnesota as my geoJSON instead of just the metropolitan area. The problem was showing to individuals who were unfamiliar with MN what the clustering of deaths meant. I wasn't sure how to do this, and was unable until after my first submission. The recommendation from the reviewer was to use a map of the Metropolitan area. I think that was great feedback, but I didn't want to leave out police related deaths in other parts of the state. I turned to a geoJSON that had the counties on it. I highlighted the counties that are associated with the Twin-Cities Metropolitan state and put a note below the geoJson that says "NOTE: the highlighted area in the map above represents the Twin Cities Metropolitan Area."
 
 
 <h3>
