@@ -165,6 +165,18 @@
                      .append('path')
                      .attr('d', path)
                      .style('fill', 'lightgray')
+                     .style('fill', function(d, i) {
+	                        var name = d.properties.name; 
+                            if (name == 'Hennepin ' ||
+                                name == 'Ramsey ' ||
+                                name == 'Dakota ' ||
+                                name == 'Scott ' ||
+                                name == 'Washington ') {
+                                return "lightBlue";
+                            } else {
+                                return "lightgray";
+                            }
+	                  })
                      .style('stroke', 'black')
                      .style('stroke-width', 0.5);
                     
