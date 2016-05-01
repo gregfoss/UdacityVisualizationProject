@@ -128,6 +128,7 @@
       
       function draw(geo_data) {
         "use strict";
+                
         var margin = 75,
             width = 960 - margin,
             height = 1060 - margin;
@@ -135,7 +136,10 @@
         d3.select("body")
           .append("h2")
           .text("Deaths In Mn with Police Interactions ");
-          
+       
+        d3.select("body")
+          .append("h4")
+            .text("NOTE: The highlighted area in map below represents the Twin-Cities Metropolitan Area.");
     
         var svg = d3.select("body")
                     .append("svg")
@@ -332,7 +336,7 @@
                     
                 });       
             }
-          }, 10);
+          }, 1000);
             
         }
         
