@@ -19,7 +19,7 @@ large number of photos still remained unavailable. My goal was to simply
 show the number of deaths per year over time on a geoJson map of
 Minnesota. I wanted to show two things. The first was that there is a
 gentle increase in these incidences over time. The second was that the
-majority of the incidents are in the Twin-Cities metro area. I also
+majority of the incidents are in the Twin-Cities metro area, which is comprised of Hennepin, Ramsey and Washington counties. I also
 included a table of the individuals that perished at the hands of the
 police. I wanted to tell the story of the individuals as well as the
 trend and clustering. </br> I did simple and obvious <i> search and
@@ -482,6 +482,12 @@ Back to the original plan. I believe, in the end, seeing the faces that
 perished would be a powerful visualization. Of course, there is much
 room for improvement. I will add a section to document what I will
 continue to improve as my js and d3 skills advance. </br>
+
+<h3>
+Design
+</h3>
+My goal was to show clustering for a geographical area and a trend. I also wanted to have a 'martini' glass visualization. One that would tell a small story without user interaction and then allow the user to explore the data on their own. I felt that the subject matter was a bit sensitive therefore I did not want to leave any police related death in MN be left out. This is why I chose a map of Minnesota as my geoJSON instead of just the metropolitan area. The problem was showing to individuals who were unfamiliar with MN why exactly the 
+
 
 <h3>
 Sources
