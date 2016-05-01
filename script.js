@@ -254,6 +254,10 @@
                .attr('cy', function(d) { return d.values['y']; })
                .attr('r', 8);
           
+          //Add Note for Highlighted area
+          d3.select("body")
+            .append("h4")
+                .text("NOTE: Highlighted area in map above represents Twin-Cities Metro");
           //Add a simple scatterplot to show trend over time
           var yearTrend = scatter(data);
           //Select the features from the tsv to be put in the table. 
