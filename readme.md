@@ -566,8 +566,11 @@ Following my first submission I added counties to the map, highlighted the Metro
 <h3>
 Submissions
 </h3>
-There are eight essential files here.
+There are ten essential files here.
 <ol>
+<li>
+d3.min.js
+</li>
 <li>
 index.html
 </li>
@@ -589,6 +592,8 @@ script1.js
 <li>
 mn_shootings.tsv
 </li>
+<li>
+yeardeaths.tsv
 <li>
 mn.json
 </li>
